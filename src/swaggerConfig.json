@@ -1,0 +1,246 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Users CRUD API ignite",
+		"description": "This is a simple crud for users as part of an ignite challenge.",
+		"version": "1.0.0"
+	},
+	"paths": {
+		"/users": {
+			"post": {
+				"tags": ["users"],
+				"summary": "Create user",
+				"description": "Create a new user",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "objetc",
+								"properties": {
+									"name": {
+										"type": "string"
+									},
+									"email": {
+										"type": "string"
+									}
+								},
+								"example": {
+									"name": "name",
+									"email": "name@domain.com"
+								}
+							}
+						}
+					},
+					"required": "true"
+				},
+				"responses": {
+					"201": {
+						"description": "User created with success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "objetc",
+									"properties": {
+										"id": {
+											"type": "string"
+										},
+										"name": {
+											"type": "string"
+										},
+										"email": {
+											"type": "string"
+										},
+										"admin": {
+											"type": "boolean"
+										},
+										"created_at": {
+											"type": "date"
+										},
+										"updated_at": {
+											"type": "date"
+										}
+									}
+								},
+								"example": {
+									"id": "b0b8a153-9bb6-4c81-9344-6ca8d3996257",
+									"name": "Name",
+									"email": "name@domain.com",
+									"admin": "false",
+									"created_at": "2022-05-23T15:00:00Z",
+									"updated_at": "2022-05-23T15:00:00Z"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Email already taken"
+					}
+				}
+			},
+			"get": {
+				"tags": ["users"],
+				"summary": "List users",
+				"description": "List all users - Must be an admin user",
+				"parameters": [
+					{
+						"name": "user_id",
+						"in": "header",
+						"description": "a valid admin user_id",
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"name": {
+												"type": "string"
+											},
+											"email": {
+												"type": "string"
+											},
+											"admin": {
+												"type": "boolean"
+											},
+											"created_at": {
+												"type": "date"
+											},
+											"updated_at": {
+												"type": "date"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/users/{user_id}": {
+			"get": {
+				"tags": ["users"],
+				"summary": "Show user profile",
+				"description": "Shows a user profiles",
+				"parameters": [
+					{
+						"name": "user_id",
+						"in": "path",
+						"description": "a valid user_id",
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "User profile obtained with success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "objetc",
+									"properties": {
+										"id": {
+											"type": "string"
+										},
+										"name": {
+											"type": "string"
+										},
+										"email": {
+											"type": "string"
+										},
+										"admin": {
+											"type": "boolean"
+										},
+										"created_at": {
+											"type": "date"
+										},
+										"updated_at": {
+											"type": "date"
+										}
+									}
+								},
+								"example": {
+									"id": "b0b8a153-9bb6-4c81-9344-6ca8d3996257",
+									"name": "Name",
+									"email": "name@domain.com",
+									"admin": "false",
+									"created_at": "2022-05-23T15:00:00Z",
+									"updated_at": "2022-05-23T15:00:00Z"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "User not found."
+					}
+				}
+			}
+		},
+		"/users/{user_id}/admin": {
+			"patch": {
+				"tags": ["users"],
+				"summary": "Make admin",
+				"description": "Make a user an admin",
+				"parameters": [
+					{
+						"name": "user_id",
+						"in": "path",
+						"description": "a valid user_id",
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "User profile updated with success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "objetc",
+									"properties": {
+										"id": {
+											"type": "string"
+										},
+										"name": {
+											"type": "string"
+										},
+										"email": {
+											"type": "string"
+										},
+										"admin": {
+											"type": "boolean"
+										},
+										"created_at": {
+											"type": "date"
+										},
+										"updated_at": {
+											"type": "date"
+										}
+									}
+								},
+								"example": {
+									"id": "b0b8a153-9bb6-4c81-9344-6ca8d3996257",
+									"name": "Name",
+									"email": "name@domain.com",
+									"admin": "true",
+									"created_at": "2022-05-23T15:00:00Z",
+									"updated_at": "2022-05-24T16:16:00Z"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "User not found."
+					}
+				}
+			}
+		}
+	}
+}
